@@ -1,0 +1,7 @@
+<h2>This is a django practice</h2>
+
+{% for transaction in transactions %}
+
+    <p>{{ transaction.description }} - {{ transaction.amount }}</p>
+
+{% endfor %}

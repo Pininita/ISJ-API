@@ -1,0 +1,32 @@
+<h3>transaction form draft</h3>
+
+{#<form action="/forms/" method="POST">#}
+{#  <!-- Si usas Django necesitarás {% csrf_token %} en tu template -->#}
+{##}
+{#  <label for="description">Descripción:</label><br>#}
+{#  <input type="text" id="description" name="description" required><br><br>#}
+{##}
+{#  <label for="amount">Monto:</label><br>#}
+{#  <input type="number" id="amount" name="amount" step="0.01" required><br><br>#}
+{##}
+{#  <label for="city">Ciudad:</label><br>#}
+{#  <input type="text" id="city" name="city" required><br><br>#}
+{##}
+{#  <label for="place">Lugar:</label><br>#}
+{#  <input type="text" id="place" name="place" required><br><br>#}
+{##}
+{#  <label for="type">Tipo de Transacción:</label><br>#}
+{#  <select id="type" name="type" required>#}
+{#    <option value="income">Ingreso</option>#}
+{#    <option value="expense">Egreso</option>#}
+{#  </select><br><br>#}
+{##}
+{#  <button type="submit">Guardar Transacción</button>#}
+{#</form>#}
+<form action="">
+
+{{ form.as_p }}
+<button >
+    save
+</button>
+</form>
