@@ -16,11 +16,16 @@ Including another URLconf
 """
 from debug_toolbar.toolbar import debug_toolbar_urls
 from django.contrib import admin
+from django.http import HttpResponse
 from django.urls import path, include
 from django.views.decorators.csrf import csrf_exempt
 from graphene_django.views import GraphQLView
 
+def home(request):
+    return HttpResponse("¡ISJ API funcionando correctamente! 🚀<br><br>Rutas disponibles:<br>- /admin/<br>- /api/<br>- /graphql/")
+
 urlpatterns = [
+    path('', home, name='home'),
     path('admin/', admin.site.urls),
     path('api/', include('transactions.urls')),
     path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
