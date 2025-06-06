@@ -3,6 +3,8 @@ from graphene import relay
 from graphene_django import DjangoObjectType
 from django.contrib.auth import get_user_model
 from graphql_jwt.decorators import login_required
+from graphql_jwt import Verify, Refresh, \
+    ObtainJSONWebToken
 
 User = get_user_model()
 
@@ -94,6 +96,10 @@ class ChangePassword(graphene.Mutation):
         return ChangePassword(success=False)
 
 class Mutation(graphene.ObjectType):
+    token_auth = ObtainJSONWebToken.Field()
+    verify_token = Verify.Field()
+    refresh_token = Refresh.Field()
+
     create_user = CreateUser.Field()
     update_user = UpdateUser.Field()
     change_password = ChangePassword.Field()
