@@ -1,1 +1,1 @@
-web: gunicorn isj_api.wsgi
+web: python manage.py collectstatic && gunicorn isj_api.wsgi

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'whitenoise.runserver_nostatic',  # Para servir archivos estáticos en desarrollo
     'rest_framework',
     'graphene_django',
     'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
