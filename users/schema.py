@@ -5,14 +5,38 @@ from django.contrib.auth import get_user_model
 from graphql_jwt.decorators import login_required
 from graphql_jwt import Verify, Refresh, \
     ObtainJSONWebToken
+from transactions.utils import get_total_income, get_total_expense, get_balance
 
 User = get_user_model()
 
 class UserType(DjangoObjectType):
+    total_income = graphene.Float()
+    total_expense = graphene.Float()
+    balance = graphene.Float()
+
     class Meta:
         model = User
         filter_fields = []
         interfaces = (relay.Node,)
+
+    def get_total_income(user):
+        total_income = Transaction.objects.filter(
+            user=user,
+            transaction_type=transaction_types.INCOME
+        ).aggregate(total=Sum('amount'))['total']
+        return total_income or 0
+
+    def get_total_expense(user):
+        total_expense = Transaction.objects.filter(
+            user=user,
+            transaction_type=transaction_types.EXPENSE
+        ).aggregate(total=Sum('amount'))['total']
+        return total_expense or 0
+
+    def get_balance(user):
+        income = get_total_income(user)
+        expense = get_total_expense(user)
+        return income - expense
 
 # aca estoy mostrando en el playground la accecibilidad para ver la informacion de los usuarios pero
 # con un fin de practica, lo ideal es que no se pueda ver la informacion del usuario y que solo
