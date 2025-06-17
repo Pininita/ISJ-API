@@ -10,4 +10,4 @@ class User(AbstractUser, PermissionsMixin):
     # TODO remove blank=True option when deploy product
     username = models.CharField(max_length=255, blank=True, unique=True)
 
-    EMAIL_FIELD = 'email'
+    EMAIL_FIELD = 'email'  # define el campo principal para manejar la autenticacion
