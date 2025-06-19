@@ -19,24 +19,16 @@ class UserType(DjangoObjectType):
         filter_fields = []
         interfaces = (relay.Node,)
 
-    def get_total_income(user):
-        total_income = Transaction.objects.filter(
-            user=user,
-            transaction_type=transaction_types.INCOME
-        ).aggregate(total=Sum('amount'))['total']
-        return total_income or 0
+    # aca retorno los valore del ingreso, egreso y balance que coincida con el usuario
 
-    def get_total_expense(user):
-        total_expense = Transaction.objects.filter(
-            user=user,
-            transaction_type=transaction_types.EXPENSE
-        ).aggregate(total=Sum('amount'))['total']
-        return total_expense or 0
+    def resolve_total_income(self, info):
+        return get_total_income(self)
 
-    def get_balance(user):
-        income = get_total_income(user)
-        expense = get_total_expense(user)
-        return income - expense
+    def resolve_total_expense(self, info):
+        return get_total_expense(self)
+
+    def resolve_balance(self,info):
+        return get_balance(self)
 
 # aca estoy mostrando en el playground la accecibilidad para ver la informacion de los usuarios pero
 # con un fin de practica, lo ideal es que no se pueda ver la informacion del usuario y que solo
