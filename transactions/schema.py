@@ -18,7 +18,11 @@ class Query(ObjectType):
     @login_required
     def resolve_transactions(self, info, **kwargs):
         user = info.context.user
-        return Transaction.objects.filter(user=user)
+        print(user)
+        transactions = Transaction.objects.filter(user=user)
+        print("-----------------")
+        print(transactions)
+        return transactions
 
 
 class Mutation(ObjectType):
