@@ -27,8 +27,6 @@ class CreateTransaction(relay.ClientIDMutation):
 
         print(input.get("transaction_type").value)
 
-
-
         _, user_id = from_global_id(input.get("user_id"))
 
         print(user_id)
