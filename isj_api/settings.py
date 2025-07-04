@@ -166,6 +166,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173", # para desarrollo local
     "http://127.0.0.1:5173", # para desarrollo local
     "https://isj-api-production.up.railway.app", # mi api local
+    "https://isj.vercel.app", # mi frontend en vercel
 ]
 
 CORS_ALLOW_HEADERS = [
