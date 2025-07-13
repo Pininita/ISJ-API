@@ -107,14 +107,22 @@ WSGI_APPLICATION = 'isj_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.config(
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-        default='postgresql://postgres@localhost:5432/isj_api',
-        conn_max_age=600
-    )
-}
+if config('DATABASE_URL', default=None):
+    # Producción (Render/Railway) - usa PostgreSQL
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=config('DATABASE_URL'),
+            conn_max_age=600
+        )
+    }
+else:
+    # Desarrollo local - usa SQLite
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
