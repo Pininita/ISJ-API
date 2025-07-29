@@ -3,7 +3,6 @@ Django==4.2.20
 django-debug-toolbar==5.1.0
 django-filter==25.1
 django-graphql-jwt==0.4.0
-djangorestframework==3.16.0
 graphene==3.4.3
 graphene-django==3.2.3
 graphql-core==3.2.6

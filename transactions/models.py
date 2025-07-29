@@ -16,3 +16,6 @@ class Transaction(models.Model):
 
     def __str__(self):
         return f"{self.get_transaction_type_display()} - {self.amount} ({self.city})"
+
+    class Meta:
+        ordering = ('-created_at',)

@@ -1,7 +1,6 @@
 #   MUTATION
 
 from graphene import relay, String, Decimal, Field
-from pkg_resources import require
 
 from transactions.enums import TransactionType
 from transactions.models import Transaction
