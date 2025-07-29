@@ -12,6 +12,7 @@ class Transaction(models.Model):
     city = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
     transaction_type = models.CharField(max_length=10, choices=TRANSACTION_TYPE_CHOICES) # se cambia el nombre por unos mas adecuado, type es una palabra reserbada de django
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

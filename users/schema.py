@@ -5,14 +5,30 @@ from django.contrib.auth import get_user_model
 from graphql_jwt.decorators import login_required
 from graphql_jwt import Verify, Refresh, \
     ObtainJSONWebToken
+from transactions.utils import get_total_income, get_total_expense, get_balance
 
 User = get_user_model()
 
 class UserType(DjangoObjectType):
+    total_income = graphene.Float()
+    total_expense = graphene.Float()
+    balance = graphene.Float()
+
     class Meta:
         model = User
         filter_fields = []
         interfaces = (relay.Node,)
+
+    # aca retorno los valore del ingreso, egreso y balance que coincida con el usuario
+
+    def resolve_total_income(self, info):
+        return get_total_income(self)
+
+    def resolve_total_expense(self, info):
+        return get_total_expense(self)
+
+    def resolve_balance(self,info):
+        return get_balance(self)
 
 # aca estoy mostrando en el playground la accecibilidad para ver la informacion de los usuarios pero
 # con un fin de practica, lo ideal es que no se pueda ver la informacion del usuario y que solo

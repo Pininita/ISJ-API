@@ -23,9 +23,12 @@ dist-ssr
 *.sln
 *.sw?
 
+.venv
 .env
 *.pyc
 __pycache__/
 db.sqlite3
 *.sqlite3
 .python-version
+
+staticfiles
