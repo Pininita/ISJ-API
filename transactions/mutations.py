@@ -1,6 +1,7 @@
 #   MUTATION
 
 from graphene import relay, String, Decimal, Field
+from graphql_jwt.decorators import login_required
 from pkg_resources import require
 
 from transactions.enums import TransactionType
@@ -19,8 +20,9 @@ class CreateTransaction(relay.ClientIDMutation):
         transaction_type = TransactionType(required=True)
 
     @classmethod
+    @login_required
     def mutate_and_get_payload(cls, root, info, **input):
-        print(input)
-        transaction = Transaction(description = input.get('description'), amount = input.get('amount'), city = input.get('city'), location = input.get('location'), transaction_type = input.get('transaction_type').value)
+        user = info.context.user
+        transaction = Transaction(user=user, description = input.get('description'), amount = input.get('amount'), city = input.get('city'), location = input.get('location'), transaction_type = input.get('transaction_type').value)
         transaction.save()
         return CreateTransaction(transaction=transaction)
