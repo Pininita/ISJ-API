@@ -1,18 +1,12 @@
 import graphene
-from graphene import relay
-from graphene_django import DjangoObjectType
-from django.contrib.auth import get_user_model
 from graphql_jwt.decorators import login_required
 from graphql_jwt import Verify, Refresh, \
     ObtainJSONWebToken
+from users.nodes import UserNode
+from django.contrib.auth import get_user_model
+
 
 User = get_user_model()
-
-class UserType(DjangoObjectType):
-    class Meta:
-        model = User
-        filter_fields = []
-        interfaces = (relay.Node,)
 
 # aca estoy mostrando en el playground la accecibilidad para ver la informacion de los usuarios pero
 # con un fin de practica, lo ideal es que no se pueda ver la informacion del usuario y que solo
@@ -20,9 +14,9 @@ class UserType(DjangoObjectType):
 # el 'me' permite al usuario que esta loguiado, revisar su propia informacion
 
 class Query(graphene.ObjectType): #para obtener los datos del usuario autenticado
-    me = graphene.Field(UserType)
-    # users = DjangoFilterConnectionField(UserType)
-    # user = relay.Node.Field(UserType)
+    me = graphene.Field(UserNode)
+    # users = DjangoFilterConnectionField(UserNode)
+    # user = relay.Node.Field(UserNode)
 
     @login_required
     def resolve_me(self, info):
@@ -34,7 +28,7 @@ class Query(graphene.ObjectType): #para obtener los datos del usuario autenticad
         return User.objects.all()
 
 class CreateUser(graphene.Mutation):
-    user = graphene.Field(UserType)
+    user = graphene.Field(UserNode)
 
     class Arguments:
         username = graphene.String(required=True)
@@ -58,7 +52,7 @@ class CreateUser(graphene.Mutation):
         return CreateUser(user=user)
 
 class UpdateUser(graphene.Mutation):
-    user = graphene.Field(UserType)
+    user = graphene.Field(UserNode)
 
     class Arguments:
         email = graphene.String()
